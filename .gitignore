@@ -1,0 +1,29 @@
+# Qt-specific
+*.user
+*.pro.user
+*.qmake.stash
+Makefile
+moc_*
+*.o
+*.moc
+*.app
+*.exe
+
+# Build directories
+build/
+debug/
+release/
+
+# Temporary files
+*.swp
+*~
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+CMakeFiles/
+qt-csv-viewer_autogen/
+CMakeCache.txt
+cmake_install.cmake
+csv-viewer

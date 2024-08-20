@@ -23,7 +23,5 @@ release/
 Thumbs.db
 
 CMakeFiles/
-qt-csv-viewer_autogen/
 CMakeCache.txt
-cmake_install.cmake
 csv-viewer

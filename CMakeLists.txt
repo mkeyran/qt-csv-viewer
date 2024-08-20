@@ -20,3 +20,6 @@ add_executable(csv-viewer
 
 target_include_directories(csv-viewer PRIVATE include)
 target_link_libraries(csv-viewer PRIVATE Qt5::Widgets)
+
+# Install target
+install(TARGETS csv-viewer DESTINATION bin)

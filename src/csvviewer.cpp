@@ -107,6 +107,14 @@ void CSVViewer::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void CSVViewer::showEvent(QShowEvent *event)
+{
+    QMainWindow::showEvent(event);
+    QTimer::singleShot(0, this, [this]() {
+        raise();
+        activateWindow();
+    });
+}
 
 void CSVViewer::copySelection()
 {

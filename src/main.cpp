@@ -1,13 +1,29 @@
 #include <QApplication>
 #include <QCommandLineParser>
 #include <QFileInfo>
+#include <QScreen>
 #include "csvviewer.h"
+#include <QDebug>
 
 int main(int argc, char *argv[])
 {
+    // Enable high DPI scaling
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
+    QCoreApplication::setAttribute(Qt::AA_UseHighDpiPixmaps);
+
     QApplication app(argc, argv);
     QApplication::setApplicationName("Qt CSV Viewer");
     QApplication::setApplicationVersion("1.0");
+
+    // Set the application's DPI awareness
+    app.setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
+
+    // Optional: Print the current screen's DPI for debugging
+    QScreen *screen = QGuiApplication::primaryScreen();
+    if (screen) {
+        qDebug() << "Logical DPI:" << screen->logicalDotsPerInch();
+        qDebug() << "Physical DPI:" << screen->physicalDotsPerInch();
+    }
 
     QCommandLineParser parser;
     parser.setApplicationDescription("Simple CSV Viewer");

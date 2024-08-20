@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QTableView>
 #include <QStandardItemModel>
+#include <QTimer>
+
 
 class CSVViewer : public QMainWindow
 {
@@ -15,6 +17,7 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
+    void showEvent(QShowEvent *event) override;
 
 private slots:
     void copySelection();

@@ -25,3 +25,4 @@ Thumbs.db
 CMakeFiles/
 CMakeCache.txt
 csv-viewer
+pkg/

@@ -1,0 +1,31 @@
+# Maintainer: Your Name <your.email@example.com>
+pkgname=qt-csv-viewer
+pkgver=r3.b2eb770
+pkgrel=1
+pkgdesc="A lightweight CSV viewer using Qt"
+arch=('x86_64')
+url="https://github.com/mkeyran/qt-csv-viewer"
+license=('MIT')
+depends=('qt5-base')
+makedepends=('cmake' 'qt5-base' 'git')
+source=("git+https://github.com/mkeyran/qt-csv-viewer.git")
+md5sums=('SKIP')
+
+pkgver() {
+    cd "$srcdir/$pkgname"
+    printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+}
+
+build() {
+    cd "$srcdir/$pkgname"
+    mkdir -p build
+    cd build
+    cmake ..
+    make
+}
+
+package() {
+    cd "$srcdir/$pkgname/build"
+    make DESTDIR="$pkgdir" install
+    install -Dm644 ../LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}

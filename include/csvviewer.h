@@ -15,6 +15,9 @@ public:
     CSVViewer(QWidget *parent = nullptr);
     void loadCSV(const QString &filename, bool useHeader);
 
+private:
+    QStringList parseCSVLine(const QString &line);
+
 protected:
     void keyPressEvent(QKeyEvent *event) override;
     void showEvent(QShowEvent *event) override;

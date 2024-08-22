@@ -38,7 +38,7 @@ CSVViewer::CSVViewer(QWidget *parent)
 
 void CSVViewer::loadCSV(const QString &filename, bool useHeader)
 {
-    QFile file(filename);
+     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QMessageBox::critical(this, "Error", "Could not open the file.");
         return;
@@ -52,7 +52,7 @@ void CSVViewer::loadCSV(const QString &filename, bool useHeader)
 
     while (!in.atEnd()) {
         QString line = in.readLine();
-        QStringList fields = line.split(",");
+        QStringList fields = parseCSVLine(line);
 
         if (row == 0) {
             if (useHeader) {
@@ -83,7 +83,7 @@ void CSVViewer::loadCSV(const QString &filename, bool useHeader)
 
     file.close();
     setWindowTitle("CSV Viewer - " + filename);
-
+    
     // Resize columns to content
     tableView->resizeColumnsToContents();
 
@@ -115,6 +115,49 @@ void CSVViewer::showEvent(QShowEvent *event)
         activateWindow();
     });
 }
+
+QStringList CSVViewer::parseCSVLine(const QString &line)
+{
+    QStringList fields;
+    QString field;
+    bool inQuotes = false;
+    
+    for (int i = 0; i < line.length(); ++i) {
+        QChar current = line[i];
+        
+        if (inQuotes) {
+            if (current == '"' && i < line.length() - 1 && line[i+1] == '"') {
+                // Double quotes inside quoted field
+                field += '"';
+                ++i; // Skip next quote
+            } else if (current == '"') {
+                // End of quoted field
+                inQuotes = false;
+            } else {
+                // Regular character inside quotes
+                field += current;
+            }
+        } else {
+            if (current == '"') {
+                // Beginning of quoted field
+                inQuotes = true;
+            } else if (current == ',') {
+                // End of unquoted field
+                fields.append(field.trimmed());
+                field.clear();
+            } else {
+                // Regular character outside quotes
+                field += current;
+            }
+        }
+    }
+    
+    // Add the last field
+    fields.append(field.trimmed());
+    
+    return fields;
+}
+
 
 void CSVViewer::copySelection()
 {

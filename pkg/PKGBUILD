@@ -1,6 +1,6 @@
 # Maintainer: Your Name <your.email@example.com>
 pkgname=qt-csv-viewer
-pkgver=r3.b2eb770
+pkgver=r5.b2a9d36
 pkgrel=1
 pkgdesc="A lightweight CSV viewer using Qt"
 arch=('x86_64')

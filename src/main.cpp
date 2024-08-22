@@ -18,13 +18,6 @@ int main(int argc, char *argv[])
     // Set the application's DPI awareness
     app.setHighDpiScaleFactorRoundingPolicy(Qt::HighDpiScaleFactorRoundingPolicy::PassThrough);
 
-    // Optional: Print the current screen's DPI for debugging
-    QScreen *screen = QGuiApplication::primaryScreen();
-    if (screen) {
-        qDebug() << "Logical DPI:" << screen->logicalDotsPerInch();
-        qDebug() << "Physical DPI:" << screen->physicalDotsPerInch();
-    }
-
     QCommandLineParser parser;
     parser.setApplicationDescription("Simple CSV Viewer");
     parser.addHelpOption();
